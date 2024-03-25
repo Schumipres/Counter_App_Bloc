@@ -1,3 +1,4 @@
+import 'package:counter_app_bloc/bloc/counter_bloc.dart';
 import 'package:counter_app_bloc/cubit/counter_cubit.dart';
 import 'package:counter_app_bloc/inc_dec_page.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,7 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Access the CounterCubit instance through the BlocProvider
-    final counterCubit = BlocProvider.of<CounterCubit>(context);
+    final counterBloc = BlocProvider.of<CounterBloc>(context);
 
     return Scaffold(
         appBar: AppBar(
@@ -27,9 +28,10 @@ class MyHomePage extends StatelessWidget {
               ),
               // Use BlocBuilder to listen for state changes in the CounterCubit
               // and build the UI based on the current state
-              BlocBuilder<CounterCubit, int>(
-                  // Pass in the instance of the CounterCubit
-                  bloc: counterCubit,
+              BlocBuilder<CounterBloc, int>(
+                  // Pass in the instance of the CounterCubit, it's optional to pass it in
+                  // because the BlocBuilder will automatically find the instance of the CounterCubit, because it is provided above in the widget tree
+                  bloc: counterBloc,
                   // The builder function has access to the current state
                   builder: (context, counter) {
                     return Text(

@@ -1,3 +1,4 @@
+import 'package:counter_app_bloc/bloc/counter_bloc.dart';
 import 'package:counter_app_bloc/components/my_back_button.dart';
 import 'package:counter_app_bloc/cubit/counter_cubit.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,7 @@ const IncDecPage({ super.key });
   @override
   Widget build(BuildContext context){
     // Access the CounterCubit instance through the BlocProvider
-    final counterCubit = BlocProvider.of<CounterCubit>(context);
+    final counterBloc = BlocProvider.of<CounterBloc>(context);
 
     return Scaffold(
       body: const Row(children: [
@@ -25,7 +26,7 @@ const IncDecPage({ super.key });
             heroTag: "inc",
             onPressed: () {
               // Call the increment method when the button is pressed
-              counterCubit.increment();
+              counterBloc.add(CounterIncremented());
             },
             tooltip: 'Increment',
             child: const Icon(Icons.add),
@@ -35,7 +36,7 @@ const IncDecPage({ super.key });
             heroTag: "dec",
             onPressed: () {
               // Call the increment method when the button is pressed
-              counterCubit.decrement();
+              counterBloc.add(CounterDecremented());
             },
             tooltip: 'Decrement',
             child: const Icon(Icons.remove),

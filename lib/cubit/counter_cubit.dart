@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Define a CounterCubit which extends Cubit<int>
+// Cunit relies on functions to emit new states
 class CounterCubit extends Cubit<int> {
   // The initial state of the CounterCubit is 0.
   CounterCubit() : super(0);

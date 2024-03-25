@@ -1,3 +1,4 @@
+import 'package:counter_app_bloc/bloc/counter_bloc.dart';
 import 'package:counter_app_bloc/cubit/counter_cubit.dart';
 import 'package:counter_app_bloc/home_page.dart';
 import 'package:counter_app_bloc/inc_dec_page.dart';
@@ -13,8 +14,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => CounterCubit(),
+    // Provide the CounterCubit to the entire application
+    // Thanks to the MultiBlocProvider, we can provide multiple Cubits/Blocs without nesting
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) => CounterCubit(),
+        ),
+        BlocProvider(
+          create: (context) => CounterBloc(),
+        ),
+      ],
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
@@ -24,7 +34,8 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         home: const MyHomePage(title: 'Flutter Demo Home Page'),
         routes: {
-          '/home': (context) => const MyHomePage(title: 'Flutter Demo Home Page'),
+          '/home': (context) =>
+              const MyHomePage(title: 'Flutter Demo Home Page'),
           '/inc_dec': (context) => const IncDecPage(),
         },
       ),
